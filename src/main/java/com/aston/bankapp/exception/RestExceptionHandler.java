@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class RestExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ExceptionDto> handle(BaseException e, HttpServletRequest request) {
+    public ResponseEntity<ExceptionDto> handleBaseException(BaseException e, HttpServletRequest request) {
         log.error("Exception occurred during request {}", request.getRequestURI(), e);
         return ResponseEntity
                 .status(e.getStatus())
@@ -45,6 +45,17 @@ public class RestExceptionHandler {
                 .body(ExceptionDto.builder()
                         .status(HttpStatus.BAD_REQUEST)
                         .message("invalid request data")
+                        .build());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> handleException(Exception e, HttpServletRequest request) {
+        log.error("Unexpected exception occurred during request {}", request.getRequestURI(), e);
+        return ResponseEntity
+                .status(500)
+                .body(ExceptionDto.builder()
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .message("server side error")
                         .build());
     }
 }
