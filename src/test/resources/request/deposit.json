@@ -1,0 +1,6 @@
+{
+  "type": "DEPOSIT",
+  "amount": 100000,
+  "pin": 1234,
+  "accountNumber": "number"
+}

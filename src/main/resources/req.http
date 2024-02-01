@@ -1,0 +1,66 @@
+POST localhost/api/v1/users
+Content-Type: application/json
+
+{
+  "phoneNumber": "79274138443",
+  "name": "dense"
+}
+
+###
+
+POST localhost/api/v1/accounts
+Content-Type: application/json
+
+{
+  "pin": "1222",
+  "phoneNumber": "79274138443"
+}
+
+###
+
+GET localhost/api/v1/accounts?phoneNumber=79274138443
+
+###
+
+GET localhost/api/v1/accounts/65a191c6-6016-48ad-9386-95a7eaf743a8
+
+###
+
+POST localhost/api/v1/operations/transfer
+Content-Type: application/json
+
+{
+  "type": "TRANSFER",
+  "amount": 100000,
+  "pin": 1222,
+  "sourceAccountNumber": "77cf8926-344e-4782-8aad-d2369a665059",
+  "targetAccountNumber": "58fb1ae8-3d90-4d79-a1d7-3853713ddee0"
+}
+
+###
+
+POST localhost/api/v1/operations/deposit
+Content-Type: application/json
+
+{
+  "type": "DEPOSIT",
+  "amount": 100000,
+  "pin": 1222,
+  "accountNumber": "77cf8926-344e-4782-8aad-d2369a665059"
+}
+
+###
+
+POST localhost/api/v1/operations/withdraw
+Content-Type: application/json
+
+{
+  "type": "WITHDRAW",
+  "amount": 1000,
+  "pin": 1222,
+  "accountNumber": "77cf8926-344e-4782-8aad-d2369a665059"
+}
+
+###
+
+GET localhost/api/v1/operations/accounts/77cf8926-344e-4782-8aad-d2369a665059

@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet
+            id="202401301343"
+            author="dense"
+            context="prod"
+    >
+        <createTable tableName="bank_accounts">
+            <column name="id" type="uuid" defaultValueComputed="random_uuid()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="bank_acc_users_fk"
+                        referencedTableName="users"
+                        referencedColumnNames="id"
+                />
+            </column>
+            <column name="number" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="balance" type="bigint" defaultValue="0">
+                <constraints nullable="false" checkConstraint="check (balance &gt;= 0)"/>
+            </column>
+            <column name="pin" type="varchar(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="now()"/>
+        </createTable>
+        <sql>
+            alter table bank_accounts add constraint check_non_negative_balance check ( balance >= 0 )
+        </sql>
+    </changeSet>
+</databaseChangeLog>

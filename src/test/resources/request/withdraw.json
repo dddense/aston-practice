@@ -1,0 +1,6 @@
+{
+  "type": "WITHDRAW",
+  "amount": 1000,
+  "pin": 1234,
+  "accountNumber": "number"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "TRANSFER",
+  "amount": 10,
+  "pin": 1234,
+  "sourceAccountNumber": "number",
+  "targetAccountNumber": "number2"
+}

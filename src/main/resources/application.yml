@@ -1,0 +1,23 @@
+spring:
+  datasource:
+  #    url: ${DB_URL:jdbc:postgresql://localhost:5432/aston_bank_app}
+  #    username: ${DB_USR:postgres}
+  #    password: ${DB_PSWD:123}
+  #    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:h2:mem:test}
+    username: ${DB_USR:sa}
+    password: ${DB_PSWD:password}
+    driver-class-name: org.h2.Driver
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+server:
+  port: 80

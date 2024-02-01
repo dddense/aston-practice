@@ -1,0 +1,44 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet
+            id="202401301350"
+            author="dense"
+            context="prod"
+    >
+        <createTable tableName="transfer_operations">
+            <column name="id" type="uuid" defaultValueComputed="random_uuid()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="bigint" defaultValue="0">
+                <constraints nullable="false" checkConstraint="check(amount &gt;= 0)"/>
+            </column>
+            <column name="operation_type" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="now()"/>
+            <column name="target_account_id" type="uuid">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="transfers_target_accounts_fk"
+                        referencedTableName="bank_accounts"
+                        referencedColumnNames="id"
+                />
+            </column>
+            <column name="account_id" type="uuid">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="transfers_accounts_fk"
+                        referencedTableName="bank_accounts"
+                        referencedColumnNames="id"
+                />
+            </column>
+        </createTable>
+        <sql>
+            alter table transfer_operations add constraint check_transfer_non_negative_amount check ( amount >= 0 )
+        </sql>
+    </changeSet>
+</databaseChangeLog>
